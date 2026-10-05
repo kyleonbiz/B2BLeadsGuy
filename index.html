@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Manhattan.info — Digital business intelligence system for U.S. market research and B2B lead discovery.">
-    <title>Manhattan.info — U.S. Business Intelligence</title>
+    <meta name="description" content="B2BLeadsGuy researches and finds American businesses for you. Custom research, no databases.">
+    <title>B2BLeadsGuy — I Find Businesses</title>
     <style>
         * {
             margin: 0;
@@ -17,28 +17,20 @@
         }
 
         :root {
-            --accent-red: #FC0504;
-            --accent-red-dark: #D60403;
-            --bg-dark: #000000;
-            --bg-darker: #010000;
-            --surface-dark: #1a1a1a;
-            --surface-light: #242424;
-            --text-primary: #FEFEFE;
-            --text-secondary: #999;
-            --text-muted: #666;
-            --grid-color: rgba(252, 5, 4, 0.1);
-            --grid-color-bright: rgba(252, 5, 4, 0.2);
+            --red: #FC0504;
+            --black: #000000;
+            --white: #FEFEFE;
+            --dark: #0a0a0a;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Monaco', 'Courier New', monospace;
-            background-color: var(--bg-dark);
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--black);
+            color: var(--white);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Animated background grid */
         body::before {
             content: '';
             position: fixed;
@@ -47,15 +39,14 @@
             width: 100%;
             height: 100%;
             background-image:
-                linear-gradient(0deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent),
-                linear-gradient(90deg, transparent 24%, var(--grid-color) 25%, var(--grid-color) 26%, transparent 27%, transparent 74%, var(--grid-color) 75%, var(--grid-color) 76%, transparent 77%, transparent);
+                linear-gradient(0deg, transparent 24%, rgba(252, 5, 4, 0.03) 25%, rgba(252, 5, 4, 0.03) 26%, transparent 27%, transparent 74%, rgba(252, 5, 4, 0.03) 75%, rgba(252, 5, 4, 0.03) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(252, 5, 4, 0.03) 25%, rgba(252, 5, 4, 0.03) 26%, transparent 27%, transparent 74%, rgba(252, 5, 4, 0.03) 75%, rgba(252, 5, 4, 0.03) 76%, transparent 77%, transparent);
             background-size: 60px 60px;
             pointer-events: none;
             z-index: 1;
-            opacity: 0.3;
+            opacity: 0.5;
         }
 
-        /* Content wrapper */
         body > * {
             position: relative;
             z-index: 2;
@@ -63,9 +54,9 @@
 
         /* Navigation */
         nav {
-            border-bottom: 1px solid rgba(255, 51, 51, 0.15);
-            backdrop-filter: blur(10px);
-            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid rgba(252, 5, 4, 0.1);
+            background: var(--black);
+            padding: 1.5rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -74,70 +65,45 @@
         nav .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo {
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            font-weight: 300;
-            text-transform: uppercase;
-            color: var(--text-primary);
-        }
-
-        .logo-mark {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            margin-right: 0.5rem;
-            vertical-align: middle;
-        }
-
-        nav .nav-links {
+        .logo-section {
             display: flex;
-            gap: 2rem;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-section img {
+            width: 44px;
+            height: 44px;
         }
 
         nav a {
-            color: var(--text-secondary);
+            color: #999;
             text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent-red);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            transition: color 0.3s;
+            text-transform: uppercase;
         }
 
         nav a:hover {
-            color: var(--accent-red);
+            color: var(--red);
         }
 
-        /* Hero Section */
+        /* Hero */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 4rem 2rem;
             position: relative;
             overflow: hidden;
-            border-bottom: 1px solid rgba(255, 51, 51, 0.1);
+            border-bottom: 1px solid rgba(252, 5, 4, 0.1);
             background: linear-gradient(135deg, rgba(10, 10, 10, 0.9) 0%, rgba(15, 15, 15, 0.9) 50%, rgba(10, 10, 10, 0.9) 100%);
         }
 
@@ -164,333 +130,197 @@
         }
 
         .hero-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 2rem;
+            max-width: 900px;
             text-align: center;
             position: relative;
             z-index: 3;
         }
 
-        .hero-meta {
-            font-size: 0.7rem;
-            letter-spacing: 0.2em;
-            color: var(--accent-red);
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            animation: fadeIn 0.8s ease-out;
-        }
-
-        .hero-meta span {
-            display: inline-block;
-            margin: 0 0.5rem;
-            opacity: 0.6;
-        }
-
         .hero h1 {
             font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 300;
+            font-weight: 700;
             letter-spacing: -0.02em;
+            line-height: 1.1;
             margin-bottom: 1.5rem;
-            line-height: 1.2;
-            animation: slideIn 0.8s ease-out 0.2s backwards;
+        }
+
+        .hero .tagline {
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            color: var(--red);
+            text-transform: uppercase;
+            margin-bottom: 2rem;
         }
 
         .hero p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
+            font-size: 1.15rem;
+            color: #aaa;
+            max-width: 700px;
             margin: 0 auto 2.5rem;
             line-height: 1.8;
-            animation: slideIn 0.8s ease-out 0.4s backwards;
         }
 
-        .hero-buttons {
+        .cta-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
             flex-wrap: wrap;
-            animation: slideIn 0.8s ease-out 0.6s backwards;
         }
 
         .btn {
-            padding: 0.875rem 2rem;
-            border: 1px solid rgba(255, 51, 51, 0.3);
+            padding: 0.9rem 2rem;
+            border: 1px solid var(--red);
             background: transparent;
-            color: var(--text-primary);
+            color: var(--red);
             cursor: pointer;
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            transition: all 0.3s ease;
-            position: relative;
-            font-family: inherit;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 1px solid var(--accent-red);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-
-        .btn:hover::before {
-            opacity: 1;
-            box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
+        .btn:hover {
+            background: var(--red);
+            color: var(--black);
         }
 
         .btn-primary {
-            background: var(--accent-red);
-            color: #000;
-            border-color: var(--accent-red);
-            font-weight: 600;
+            background: var(--red);
+            color: var(--black);
         }
 
         .btn-primary:hover {
-            background: var(--accent-red-dark);
-            border-color: var(--accent-red-dark);
-        }
-
-        .btn-secondary:hover {
-            color: var(--accent-red);
-            border-color: var(--accent-red);
-        }
-
-        /* Hero Visualization */
-        .hero-viz {
-            position: absolute;
-            top: 50%;
-            right: -10%;
-            width: 600px;
-            height: 600px;
-            opacity: 0.15;
-            pointer-events: none;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            background: #e60403;
+            border-color: #e60403;
         }
 
         /* Sections */
         section {
-            padding: 6rem 2rem;
+            padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
-            border-bottom: 1px solid rgba(255, 51, 51, 0.08);
+            border-bottom: 1px solid rgba(252, 5, 4, 0.08);
         }
 
-        .section-meta {
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            color: var(--accent-red);
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        .section-title {
+        h2 {
             font-size: clamp(2rem, 5vw, 3.5rem);
-            font-weight: 300;
+            font-weight: 700;
             margin-bottom: 2rem;
             letter-spacing: -0.02em;
         }
 
-        .section-desc {
-            color: var(--text-secondary);
-            font-size: 1rem;
+        .subtitle {
+            font-size: 1.1rem;
+            color: #999;
             max-width: 700px;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        /* System Status Cards */
-        .system-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1px;
-            background: rgba(255, 51, 51, 0.1);
-            padding: 1px;
             margin-bottom: 3rem;
         }
 
-        .system-card {
-            background: var(--surface-dark);
-            padding: 1.5rem;
-            border-left: 2px solid transparent;
-            transition: all 0.3s ease;
-            position: relative;
+        /* About Section */
+        .about-box {
+            background: var(--dark);
+            padding: 3rem;
+            border: 1px solid rgba(252, 5, 4, 0.15);
+            text-align: center;
         }
 
-        .system-card:hover {
-            border-left-color: var(--accent-red);
-            background: var(--surface-light);
+        .about-box img {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 2rem;
         }
 
-        .card-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.15em;
-            color: var(--accent-red);
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
+        .about-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
         }
 
-        .card-value {
-            font-size: 2rem;
-            font-weight: 300;
-            color: var(--text-primary);
+        .about-box p {
+            color: #999;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
         }
 
-        .card-unit {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
+        .about-box .tagline {
+            margin-top: 2rem;
+            font-size: 0.85rem;
         }
 
-        /* What We Do Section */
-        .features-grid {
+        /* How It Works */
+        .process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .step {
+            padding: 2rem;
+            background: var(--dark);
+            border-left: 3px solid var(--red);
+        }
+
+        .step-num {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 1rem;
+        }
+
+        .step h3 {
+            font-size: 1.15rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step p {
+            font-size: 0.95rem;
+            color: #999;
+        }
+
+        /* Examples */
+        .examples {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
-            margin-top: 3rem;
+            margin: 3rem 0;
         }
 
-        .feature-module {
-            border: 1px solid rgba(255, 51, 51, 0.2);
-            padding: 2rem;
-            background: linear-gradient(135deg, rgba(255, 51, 51, 0.03) 0%, transparent 100%);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+        .example {
+            padding: 1.5rem;
+            background: var(--dark);
+            border: 1px solid rgba(252, 5, 4, 0.15);
+            transition: all 0.3s;
         }
 
-        .feature-module::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 51, 51, 0.1), transparent);
-            transition: left 0.5s ease;
-            pointer-events: none;
+        .example:hover {
+            border-color: var(--red);
+            background: rgba(252, 5, 4, 0.05);
         }
 
-        .feature-module:hover {
-            border-color: var(--accent-red);
-            background: linear-gradient(135deg, rgba(255, 51, 51, 0.08) 0%, transparent 100%);
-        }
-
-        .feature-module:hover::before {
-            left: 100%;
-        }
-
-        .feature-icon {
-            width: 40px;
-            height: 40px;
-            border: 2px solid var(--accent-red);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1rem;
-            font-size: 1.2rem;
-        }
-
-        .feature-title {
-            font-size: 1.2rem;
-            font-weight: 500;
+        .example h3 {
+            font-size: 1rem;
             margin-bottom: 0.5rem;
+            line-height: 1.4;
         }
 
-        .feature-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* How It Works Timeline */
-        .timeline {
-            max-width: 800px;
-            margin-top: 3rem;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-            padding-left: 60px;
-        }
-
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            left: 15px;
-            top: 0;
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--accent-red);
-            border-radius: 50%;
-            background: var(--bg-dark);
-        }
-
-        .timeline-item:not(:last-child)::after {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 30px;
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(180deg, var(--accent-red), transparent);
-        }
-
-        .timeline-number {
-            position: absolute;
-            left: 20px;
-            top: 2px;
+        .example p {
             font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--accent-red);
+            color: #777;
         }
 
-        .timeline-content h3 {
-            font-size: 1.2rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .timeline-content p {
-            color: var(--text-secondary);
-        }
-
-        /* Form Section */
-        .form-section {
-            background: linear-gradient(135deg, rgba(255, 51, 51, 0.05) 0%, transparent 100%);
-            border: 1px solid rgba(255, 51, 51, 0.2);
+        /* Form */
+        .form-box {
+            background: var(--dark);
             padding: 3rem;
-            max-width: 700px;
+            max-width: 600px;
+            margin: 3rem auto;
+            border: 1px solid rgba(252, 5, 4, 0.15);
         }
 
-        .form-section h3 {
-            font-size: 1.3rem;
-            font-weight: 500;
+        .form-box h3 {
+            font-size: 1.5rem;
             margin-bottom: 2rem;
-            letter-spacing: -0.01em;
         }
 
         .form-group {
@@ -500,43 +330,39 @@
         .form-label {
             display: block;
             font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            color: var(--text-secondary);
             text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #999;
             margin-bottom: 0.5rem;
         }
 
         .form-input,
-        .form-textarea,
-        .form-select {
+        .form-textarea {
             width: 100%;
-            padding: 0.75rem 1rem;
-            background: var(--surface-dark);
-            border: 1px solid rgba(255, 51, 51, 0.2);
-            color: var(--text-primary);
+            padding: 0.85rem;
+            background: var(--black);
+            border: 1px solid rgba(252, 5, 4, 0.2);
+            color: var(--white);
             font-family: inherit;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
+            transition: border 0.3s;
         }
 
         .form-input:focus,
-        .form-textarea:focus,
-        .form-select:focus {
+        .form-textarea:focus {
             outline: none;
-            border-color: var(--accent-red);
-            background: var(--surface-light);
-            box-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+            border-color: var(--red);
         }
 
         .form-textarea {
             resize: vertical;
-            min-height: 100px;
+            min-height: 120px;
         }
 
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
         @media (max-width: 640px) {
@@ -545,76 +371,30 @@
             }
         }
 
-        .submit-btn {
+        .submit {
             width: 100%;
             padding: 1rem;
-            background: var(--accent-red);
-            color: #000;
-            border: 1px solid var(--accent-red);
-            font-weight: 600;
+            background: var(--red);
+            color: var(--black);
+            border: none;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.08em;
             cursor: pointer;
-            margin-top: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            background: var(--accent-red-dark);
-            border-color: var(--accent-red-dark);
-            box-shadow: 0 0 20px rgba(255, 51, 51, 0.4);
-        }
-
-        /* Philosophy Section */
-        .philosophy {
-            text-align: center;
-        }
-
-        .philosophy .section-title {
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .philosophy .section-desc {
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            font-size: 1.05rem;
-        }
-
-        /* About B2BLeadsGuy */
-        .about-system {
-            opacity: 0.8;
-        }
-
-        .about-system .section-title {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-        }
-
-        .about-system p {
-            color: var(--text-secondary);
-            max-width: 600px;
-            margin-bottom: 1rem;
-        }
-
-        .about-system a {
-            color: var(--accent-red);
-            text-decoration: none;
             font-size: 0.9rem;
-            letter-spacing: 0.05em;
+            margin-top: 1rem;
+            transition: background 0.3s;
         }
 
-        .about-system a:hover {
-            text-decoration: underline;
+        .submit:hover {
+            background: #e60403;
         }
 
         /* Footer */
         footer {
-            border-top: 1px solid rgba(255, 51, 51, 0.15);
-            padding: 2rem;
-            margin-top: 4rem;
+            border-top: 1px solid rgba(252, 5, 4, 0.1);
+            padding: 3rem 2rem;
+            background: var(--black);
         }
 
         .footer-content {
@@ -627,16 +407,9 @@
             gap: 2rem;
         }
 
-        .footer-brand {
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        .footer-brand p {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
+        .footer-text {
+            font-size: 0.85rem;
+            color: #777;
         }
 
         .footer-nav {
@@ -645,38 +418,23 @@
         }
 
         .footer-nav a {
-            color: var(--text-secondary);
+            font-size: 0.85rem;
+            color: #777;
             text-decoration: none;
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
-            transition: color 0.3s ease;
+            transition: color 0.3s;
         }
 
         .footer-nav a:hover {
-            color: var(--accent-red);
-        }
-
-        .footer-meta {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 51, 51, 0.08);
+            color: var(--red);
         }
 
         @media (max-width: 768px) {
-            nav .container {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
+            section {
+                padding: 3rem 1.5rem;
             }
 
-            nav .nav-links {
-                justify-content: center;
-            }
-
-            .hero-viz {
-                display: none;
+            .form-row {
+                grid-template-columns: 1fr;
             }
 
             .footer-content {
@@ -687,10 +445,6 @@
             .footer-nav {
                 justify-content: center;
             }
-
-            section {
-                padding: 3rem 1.5rem;
-            }
         }
     </style>
 </head>
@@ -698,139 +452,98 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <div class="logo" style="display: flex; align-items: center; gap: 0.75rem;">
-                <img src="logo.webp" alt="B2BLeadsGuy" style="width: 48px; height: 48px; flex-shrink: 0;">
+            <div class="logo-section">
+                <img src="logo.webp" alt="B2BLeadsGuy">
             </div>
             <div class="nav-links">
-                <a href="#system">SYSTEM</a>
-                <a href="#process">HOW IT WORKS</a>
-                <a href="#research">REQUEST</a>
+                <a href="#how">How</a>
+                <a href="#request">Request</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero -->
     <section class="hero">
-        <svg class="hero-viz" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <pattern id="smallGrid" width="40" height="40" patternUnits="userSpaceOnUse">
-                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#FF3333" stroke-width="0.5" opacity="0.3"/>
-                </pattern>
-            </defs>
-            <rect width="600" height="600" fill="url(#smallGrid)"/>
-            <circle cx="100" cy="80" r="3" fill="#FF3333" opacity="0.6"/>
-            <circle cx="350" cy="250" r="4" fill="#FF3333" opacity="0.5"/>
-            <circle cx="500" cy="150" r="3" fill="#FF3333" opacity="0.6"/>
-            <line x1="100" y1="80" x2="350" y2="250" stroke="#FF3333" stroke-width="0.5" opacity="0.2"/>
-            <line x1="350" y1="250" x2="500" y2="150" stroke="#FF3333" stroke-width="0.5" opacity="0.2"/>
-        </svg>
-
         <div class="hero-content">
-            <div class="hero-meta">
-                <span>SYSTEM STATUS</span> // <span>ONLINE</span>
-            </div>
-            <h1>Looking for American businesses?</h1>
-            <p>Tell us what you're looking for. We research specific industries, markets, and locations and turn them into usable business data.</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary" onclick="document.getElementById('research').scrollIntoView({behavior:'smooth'})">REQUEST RESEARCH</button>
-                <button class="btn btn-secondary" onclick="document.getElementById('system').scrollIntoView({behavior:'smooth'})">EXPLORE THE SYSTEM</button>
+            <h1>I Find Businesses</h1>
+            <p class="tagline">Research / Intelligence / Opportunities</p>
+            <p>Tell me who you're looking for. I'll research the market and find the businesses that fit your exact criteria.</p>
+            <div class="cta-buttons">
+                <button class="btn btn-primary" onclick="document.getElementById('request').scrollIntoView({behavior:'smooth'})">SEND REQUEST →</button>
+                <button class="btn" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">HOW IT WORKS →</button>
             </div>
         </div>
     </section>
 
-    <!-- What We Do -->
-    <section id="system">
-        <div class="section-meta">SYSTEM CAPABILITIES</div>
-        <h2 class="section-title">Research Dimensions</h2>
-        <p class="section-desc">Manhattan.info operates across three research dimensions. Select your focus.</p>
-
-        <div class="features-grid">
-            <div class="feature-module">
-                <div class="feature-icon">🏢</div>
-                <h3 class="feature-title">INDUSTRIES</h3>
-                <p class="feature-desc">Find businesses within specific industries. Healthcare, Technology, Manufacturing, Retail, Professional Services, and more.</p>
-            </div>
-
-            <div class="feature-module">
-                <div class="feature-icon">📍</div>
-                <h3 class="feature-title">MARKETS</h3>
-                <p class="feature-desc">Research specific cities, states, regions, or nationwide markets. Target expansion areas and growth opportunities.</p>
-            </div>
-
-            <div class="feature-module">
-                <div class="feature-icon">⚙️</div>
-                <h3 class="feature-title">CRITERIA</h3>
-                <p class="feature-desc">Narrow research using specific business requirements. Size, revenue, growth signals, location specifics, and more.</p>
-            </div>
-        </div>
-
-        <!-- System Status -->
-        <div style="margin-top: 4rem;">
-            <div class="section-meta">CURRENT SCAN</div>
-            <div class="system-grid">
-                <div class="system-card">
-                    <div class="card-label">DATA POINTS</div>
-                    <div class="card-value">1.5M+</div>
-                    <div class="card-unit">businesses indexed</div>
-                </div>
-                <div class="system-card">
-                    <div class="card-label">MARKETS</div>
-                    <div class="card-value">50+</div>
-                    <div class="card-unit">U.S. markets</div>
-                </div>
-                <div class="system-card">
-                    <div class="card-label">RESEARCH NODES</div>
-                    <div class="card-value">12+</div>
-                    <div class="card-unit">research vectors</div>
-                </div>
-                <div class="system-card">
-                    <div class="card-label">UPDATE CYCLE</div>
-                    <div class="card-value">REAL-TIME</div>
-                    <div class="card-unit">continuous scan</div>
-                </div>
-            </div>
+    <!-- About -->
+    <section>
+        <div class="about-box">
+            <img src="logo.webp" alt="B2BLeadsGuy">
+            <h3>B2BLeadsGuy</h3>
+            <p>I research the American business landscape to identify companies that match specific criteria.</p>
+            <p>No databases to search. No software to learn. You tell me what you need. I find it.</p>
+            <p class="tagline">RESEARCH / INTELLIGENCE / OPPORTUNITIES</p>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section id="process">
-        <div class="section-meta">RESEARCH PROTOCOL</div>
-        <h2 class="section-title">How It Works</h2>
-
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-number">01</div>
-                <div class="timeline-content">
-                    <h3>DEFINE</h3>
-                    <p>Tell us what you're looking for. Industry, location, company type, size, or other criteria.</p>
-                </div>
+    <section id="how">
+        <h2>How I Work</h2>
+        <div class="process">
+            <div class="step">
+                <div class="step-num">01</div>
+                <h3>Tell Me</h3>
+                <p>Describe the companies you're looking for. Industry, location, size, type, whatever criteria matters.</p>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-number">02</div>
-                <div class="timeline-content">
-                    <h3>SCAN</h3>
-                    <p>We research the market and identify relevant businesses. Businesses are analyzed, organized, and filtered against your criteria.</p>
-                </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <h3>I Research</h3>
+                <p>I dig into the market and identify businesses that match your criteria.</p>
             </div>
-
-            <div class="timeline-item">
-                <div class="timeline-number">03</div>
-                <div class="timeline-content">
-                    <h3>DELIVER</h3>
-                    <p>Receive a structured prospect dataset you can actually work with.</p>
-                </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <h3>I Deliver</h3>
+                <p>You get a list of companies with the information that matters—contact details, industry, location, and more.</p>
             </div>
         </div>
     </section>
 
-    <!-- Research Request Form -->
-    <section id="research">
-        <div class="section-meta">INITIATE RESEARCH REQUEST</div>
-        <h2 class="section-title">Request Research</h2>
+    <!-- Examples -->
+    <section>
+        <h2>I Can Find</h2>
+        <div class="examples">
+            <div class="example">
+                <h3>Manufacturers in Ohio with 50+ employees</h3>
+                <p>Target industrial companies by geography and size.</p>
+            </div>
+            <div class="example">
+                <h3>Commercial roofing companies in Texas</h3>
+                <p>Find specific trade professionals by market and specialty.</p>
+            </div>
+            <div class="example">
+                <h3>Independent medical practices in Florida</h3>
+                <p>Locate healthcare providers by type and location.</p>
+            </div>
+            <div class="example">
+                <h3>Distributors serving the Midwest</h3>
+                <p>Identify logistics and supply chain businesses by region.</p>
+            </div>
+            <div class="example">
+                <h3>Tech startups with venture funding</h3>
+                <p>Find innovation-focused businesses by signals.</p>
+            </div>
+            <div class="example">
+                <h3>Your specific combination of criteria</h3>
+                <p>Define what you need. I'll find it.</p>
+            </div>
+        </div>
+    </section>
 
-        <form id="researchForm" class="form-section">
-            <h3>RESEARCH PARAMETERS</h3>
+    <!-- Request Form -->
+    <section id="request">
+        <h2>Send Me Your Request</h2>
+        <form class="form-box" id="requestForm">
+            <h3>What Are You Looking For?</h3>
 
             <div class="form-row">
                 <div class="form-group">
@@ -843,73 +556,37 @@
                 </div>
             </div>
 
-            <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label">Industry</label>
-                    <input type="text" name="industry" class="form-input" placeholder="e.g., Healthcare, Technology">
-                </div>
-                <div class="form-group">
-                    <label class="form-label">Location</label>
-                    <input type="text" name="location" class="form-input" placeholder="e.g., New York, Texas">
-                </div>
+            <div class="form-group">
+                <label class="form-label">What are you looking for?</label>
+                <textarea name="request" class="form-textarea" placeholder="Be specific about the companies, markets, or criteria..." required></textarea>
             </div>
 
             <div class="form-group">
-                <label class="form-label">Number of businesses needed</label>
-                <input type="number" name="businessCount" class="form-input" placeholder="e.g., 50, 200">
+                <label class="form-label">Anything else I should know?</label>
+                <textarea name="notes" class="form-textarea" placeholder="Optional additional details..."></textarea>
             </div>
 
-            <div class="form-group">
-                <label class="form-label">What specifically are you looking for?</label>
-                <textarea name="description" class="form-textarea" placeholder="Be specific about your research needs."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label class="form-label">Additional criteria (optional)</label>
-                <textarea name="additionalCriteria" class="form-textarea" placeholder="Size ranges, revenue, growth signals, etc."></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn">INITIATE RESEARCH</button>
-            <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 1rem;">Research availability and pricing vary by scope.</p>
+            <button type="submit" class="submit">SEND REQUEST →</button>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 1rem;">I'll review your request and get back to you.</p>
         </form>
-    </section>
-
-    <!-- Philosophy -->
-    <section class="philosophy">
-        <h2 class="section-title">Not a lead list. Intelligence.</h2>
-        <p class="section-desc">Lists are cheap. Intelligence is valuable. We combine research, analysis, and data to identify prospects that fit your exact criteria. Every lead is vetted. Every data point is relevant.</p>
-    </section>
-
-    <!-- About B2BLeadsGuy -->
-    <section class="about-system">
-        <h2 class="section-title">The Person Behind The System</h2>
-        <p><strong>B2BLeadsGuy</strong></p>
-        <p>I spend a weird amount of time finding businesses. Not because I particularly enjoy spreadsheets—I just got pretty good at finding specific types of companies in specific places and organizing the information.</p>
-        <p>Manhattan.info is where that research lives.</p>
-        <a href="#">Learn more about B2BLeadsGuy →</a>
     </section>
 
     <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-brand">
-                MANHATTAN.INFO
-                <p>U.S. BUSINESS INTELLIGENCE</p>
+            <div class="footer-text">
+                <p><strong>B2BLeadsGuy</strong></p>
+                <p>I research and find American businesses.</p>
             </div>
             <div class="footer-nav">
-                <a href="#system">SYSTEM</a>
-                <a href="#process">HOW IT WORKS</a>
-                <a href="#research">REQUEST</a>
-                <a href="#">CONTACT</a>
+                <a href="#how">HOW</a>
+                <a href="#request">REQUEST</a>
             </div>
-        </div>
-        <div class="footer-meta">
-            <p>© 2026 Manhattan.info / Built by B2BLeadsGuy</p>
         </div>
     </footer>
 
     <script>
-        const form = document.getElementById('researchForm');
+        const form = document.getElementById('requestForm');
         const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/1556716905694232626/7wZc8akK2sufbobMQH00qK5a1spMCNHSXdStwuyQrHwFeSiOMr0mgjFTWrBi-4QvVKjI';
 
         form.addEventListener('submit', async function(e) {
@@ -920,7 +597,7 @@
 
             const submitButton = form.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
-            submitButton.textContent = 'TRANSMITTING...';
+            submitButton.textContent = 'SENDING...';
             submitButton.disabled = true;
 
             try {
@@ -929,53 +606,36 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         embeds: [{
-                            title: '🔍 RESEARCH REQUEST RECEIVED',
+                            title: '🔍 NEW REQUEST',
                             color: 16711683,
                             fields: [
-                                { name: 'Name', value: data.name || 'N/A', inline: true },
-                                { name: 'Email', value: data.email || 'N/A', inline: true },
-                                { name: 'Industry', value: data.industry || 'N/A', inline: true },
-                                { name: 'Location', value: data.location || 'N/A', inline: true },
-                                { name: 'Businesses Needed', value: data.businessCount || 'N/A', inline: true },
-                                { name: 'Description', value: data.description || 'None' },
-                                { name: 'Additional Criteria', value: data.additionalCriteria || 'None' }
+                                { name: 'Name', value: data.name || 'N/A' },
+                                { name: 'Email', value: data.email || 'N/A' },
+                                { name: 'Looking For', value: data.request || 'N/A' },
+                                { name: 'Additional Notes', value: data.notes || 'None' }
                             ],
                             timestamp: new Date().toISOString(),
-                            footer: { text: 'Manhattan.info research request' }
+                            footer: { text: 'B2BLeadsGuy request' }
                         }]
                     })
                 });
 
                 if (response.ok) {
-                    submitButton.textContent = '✓ RESEARCH INITIATED';
-                    submitButton.style.background = '#FF3333';
+                    submitButton.textContent = '✓ REQUEST RECEIVED';
                     setTimeout(() => {
                         form.reset();
                         submitButton.textContent = originalText;
-                        submitButton.style.background = '';
                         submitButton.disabled = false;
                     }, 2500);
                 }
             } catch (error) {
                 console.error('Error:', error);
-                submitButton.textContent = '✗ TRANSMISSION FAILED';
+                submitButton.textContent = '✗ ERROR';
                 setTimeout(() => {
                     submitButton.textContent = originalText;
                     submitButton.disabled = false;
                 }, 3000);
             }
-        });
-
-        // Cursor glow effect
-        document.addEventListener('mousemove', function(e) {
-            const elements = document.querySelectorAll('.feature-module, .system-card, .btn');
-            elements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                el.style.setProperty('--x', x + 'px');
-                el.style.setProperty('--y', y + 'px');
-            });
         });
     </script>
 </body>
