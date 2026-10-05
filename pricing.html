@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="B2BLeadsGuy pricing - Fresh U.S. business leads. Curated, verified, never resold.">
+    <title>Pricing — B2BLeadsGuy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --red: #FC0504;
+            --black: #000000;
+            --white: #FEFEFE;
+            --dark: #0a0a0a;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(0deg, transparent 24%, rgba(252, 5, 4, 0.03) 25%, rgba(252, 5, 4, 0.03) 26%, transparent 27%, transparent 74%, rgba(252, 5, 4, 0.03) 75%, rgba(252, 5, 4, 0.03) 76%, transparent 77%, transparent),
+                linear-gradient(90deg, transparent 24%, rgba(252, 5, 4, 0.03) 25%, rgba(252, 5, 4, 0.03) 26%, transparent 27%, transparent 74%, rgba(252, 5, 4, 0.03) 75%, rgba(252, 5, 4, 0.03) 76%, transparent 77%, transparent);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        body > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(252, 5, 4, 0.2);
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--red);
+            letter-spacing: -1px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            margin: 0 20px;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--red);
+        }
+
+        /* Header */
+        .pricing-header {
+            text-align: center;
+            padding: 80px 40px 60px;
+        }
+
+        .pricing-header h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .pricing-header p {
+            font-size: 18px;
+            color: rgba(254, 254, 254, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .pricing-subtext {
+            font-size: 14px;
+            color: var(--red);
+            margin-top: 20px;
+        }
+
+        /* Pricing Grid */
+        .pricing-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px 100px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .pricing-card {
+            border: 1px solid rgba(252, 5, 4, 0.3);
+            border-radius: 8px;
+            padding: 40px 30px;
+            background: rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            border-color: var(--red);
+            background: rgba(252, 5, 4, 0.05);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--red);
+            background: linear-gradient(135deg, rgba(252, 5, 4, 0.15) 0%, rgba(252, 5, 4, 0.05) 100%);
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(252, 5, 4, 0.2);
+        }
+
+        .pricing-badge {
+            color: var(--red);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .pricing-card.featured .pricing-badge {
+            color: var(--red);
+        }
+
+        .pricing-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .pricing-leads {
+            font-size: 14px;
+            color: rgba(254, 254, 254, 0.6);
+            margin-bottom: 25px;
+        }
+
+        .pricing-price {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .pricing-per-lead {
+            font-size: 13px;
+            color: rgba(254, 254, 254, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 10px 0;
+            font-size: 14px;
+            color: rgba(254, 254, 254, 0.8);
+            border-bottom: 1px solid rgba(252, 5, 4, 0.1);
+        }
+
+        .pricing-features li:before {
+            content: '✓ ';
+            color: var(--red);
+            font-weight: 700;
+            margin-right: 8px;
+        }
+
+        .pricing-cta {
+            background: var(--red);
+            color: var(--black);
+            border: none;
+            padding: 14px 28px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            width: 100%;
+        }
+
+        .pricing-cta:hover {
+            background: #ff1515;
+            transform: scale(1.02);
+        }
+
+        .pricing-card.featured .pricing-cta {
+            background: var(--red);
+        }
+
+        /* Custom Builds */
+        .custom-builds {
+            grid-column: 1 / -1;
+            border: 1px solid rgba(252, 5, 4, 0.2);
+            border-radius: 8px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .custom-builds h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .custom-builds p {
+            color: rgba(254, 254, 254, 0.7);
+            margin-bottom: 25px;
+        }
+
+        .custom-builds-price {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--red);
+            margin-bottom: 10px;
+        }
+
+        .contact-cta {
+            background: transparent;
+            border: 2px solid var(--red);
+            color: var(--red);
+            padding: 12px 32px;
+            font-size: 14px;
+            font-weight: 700;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-cta:hover {
+            background: var(--red);
+            color: var(--black);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .faq-section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .faq-item {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(252, 5, 4, 0.2);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: rgba(254, 254, 254, 0.7);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid rgba(252, 5, 4, 0.2);
+            padding: 40px;
+            text-align: center;
+            color: rgba(254, 254, 254, 0.5);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--red);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .pricing-header {
+                padding: 40px 20px;
+            }
+
+            .pricing-header h1 {
+                font-size: 32px;
+            }
+
+            .pricing-container {
+                padding: 0 20px 60px;
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            nav a {
+                margin: 0 10px;
+                font-size: 12px;
+            }
+
+            .custom-builds {
+                padding: 30px 20px;
+            }
+
+            .faq-section {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">B2BLeadsGuy</div>
+        <div>
+            <a href="index.html">Home</a>
+            <a href="pricing.html">Pricing</a>
+            <a href="index.html#request">Get Started</a>
+        </div>
+    </nav>
+
+    <!-- Pricing Header -->
+    <section class="pricing-header">
+        <h1>Simple, Transparent Pricing</h1>
+        <p>Fresh U.S. Business Leads</p>
+        <p>Curated. Verified. Never Resold.</p>
+        <div class="pricing-subtext">Pay only for the leads you actually use</div>
+    </section>
+
+    <!-- Pricing Cards -->
+    <section class="pricing-container">
+        <!-- Try Free -->
+        <div class="pricing-card">
+            <div class="pricing-badge">Start Free</div>
+            <h3 class="pricing-name">Try Free</h3>
+            <p class="pricing-leads">5 fresh leads</p>
+            <p class="pricing-price">Free</p>
+            <p class="pricing-per-lead">Email signup only</p>
+            <ul class="pricing-features">
+                <li>5 verified leads</li>
+                <li>Email included</li>
+                <li>Sample quality</li>
+            </ul>
+            <button class="pricing-cta">Get Started</button>
+        </div>
+
+        <!-- Starter -->
+        <div class="pricing-card">
+            <div class="pricing-badge">Popular</div>
+            <h3 class="pricing-name">Starter</h3>
+            <p class="pricing-leads">25 leads</p>
+            <p class="pricing-price">$75</p>
+            <p class="pricing-per-lead">$3.00 per lead</p>
+            <ul class="pricing-features">
+                <li>25 verified leads</li>
+                <li>Contact info</li>
+                <li>Industry tags</li>
+                <li>Company size</li>
+            </ul>
+            <button class="pricing-cta">Choose Plan</button>
+        </div>
+
+        <!-- Basic -->
+        <div class="pricing-card">
+            <div class="pricing-badge">Value</div>
+            <h3 class="pricing-name">Basic</h3>
+            <p class="pricing-leads">50 leads</p>
+            <p class="pricing-price">$129</p>
+            <p class="pricing-per-lead">$2.58 per lead</p>
+            <ul class="pricing-features">
+                <li>50 verified leads</li>
+                <li>Contact info</li>
+                <li>Industry tags</li>
+                <li>Revenue estimates</li>
+            </ul>
+            <button class="pricing-cta">Choose Plan</button>
+        </div>
+
+        <!-- Growth (Featured) -->
+        <div class="pricing-card featured">
+            <div class="pricing-badge">⭐ Most Popular</div>
+            <h3 class="pricing-name">Growth</h3>
+            <p class="pricing-leads">100 leads</p>
+            <p class="pricing-price">$199</p>
+            <p class="pricing-per-lead">$1.99 per lead</p>
+            <ul class="pricing-features">
+                <li>100 verified leads</li>
+                <li>Complete contact info</li>
+                <li>Industry & revenue data</li>
+                <li>Decision maker names</li>
+                <li>Priority support</li>
+            </ul>
+            <button class="pricing-cta">Choose Plan</button>
+        </div>
+
+        <!-- Pro -->
+        <div class="pricing-card">
+            <div class="pricing-badge">For Teams</div>
+            <h3 class="pricing-name">Pro</h3>
+            <p class="pricing-leads">250 leads</p>
+            <p class="pricing-price">$349</p>
+            <p class="pricing-per-lead">$1.40 per lead</p>
+            <ul class="pricing-features">
+                <li>250 verified leads</li>
+                <li>All Growth features</li>
+                <li>Custom targeting</li>
+                <li>Monthly updates</li>
+            </ul>
+            <button class="pricing-cta">Choose Plan</button>
+        </div>
+
+        <!-- Agency -->
+        <div class="pricing-card">
+            <div class="pricing-badge">Enterprise</div>
+            <h3 class="pricing-name">Agency</h3>
+            <p class="pricing-leads">500 leads</p>
+            <p class="pricing-price">$549</p>
+            <p class="pricing-per-lead">$1.10 per lead</p>
+            <ul class="pricing-features">
+                <li>500 verified leads</li>
+                <li>All Pro features</li>
+                <li>Dedicated support</li>
+                <li>Quarterly reviews</li>
+            </ul>
+            <button class="pricing-cta">Choose Plan</button>
+        </div>
+
+        <!-- Bulk -->
+        <div class="pricing-card">
+            <div class="pricing-badge">Volume</div>
+            <h3 class="pricing-name">Bulk</h3>
+            <p class="pricing-leads">1,000 leads</p>
+            <p class="pricing-price">$899</p>
+            <p class="pricing-per-lead">$0.90 per lead</p>
+            <ul class="pricing-features">
+                <li>1,000 verified leads</li>
+                <li>All Agency features</li>
+                <li>Direct line access</li>
+                <li>Custom builds available</li>
+            </ul>
+            <button class="pricing-cta">Choose Plan</button>
+        </div>
+
+        <!-- Custom Builds -->
+        <div class="custom-builds">
+            <h3>Need Something Custom?</h3>
+            <p>Specific industries, locations, or criteria? I can build custom lists tailored to your exact needs.</p>
+            <div class="custom-builds-price">Starting at $1.50/lead</div>
+            <p style="font-size: 13px; margin-bottom: 20px;">Contact for personalized quote</p>
+            <button class="contact-cta">Contact Us</button>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <h2>Frequently Asked Questions</h2>
+        
+        <div class="faq-item">
+            <div class="faq-question">How fresh are the leads?</div>
+            <div class="faq-answer">Every lead is researched and verified within the last 30 days. No stale databases, no recycled lists.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What information is included?</div>
+            <div class="faq-answer">Depends on the plan, but typically: company name, decision maker names, phone, email, industry, revenue estimates, and company size.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Are these leads exclusive?</div>
+            <div class="faq-answer">Yes. Once you purchase a lead list, those specific leads are never sold to anyone else. They're yours alone.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">What's your refund policy?</div>
+            <div class="faq-answer">100% satisfaction guaranteed. If leads don't meet quality expectations, we'll provide replacements at no cost.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">How do I get the leads?</div>
+            <div class="faq-answer">After purchase, you'll receive a download link immediately. Leads are delivered as a clean CSV file ready to import into your CRM.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="faq-question">Can I customize a list?</div>
+            <div class="faq-answer">Absolutely. Tell me your criteria—industry, location, company size, revenue range—and I'll build exactly what you need.</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 B2BLeadsGuy. Fresh leads researched by real humans.</p>
+        <p><a href="index.html">Home</a> • <a href="pricing.html">Pricing</a> • <a href="mailto:info@b2bleadsguy.com">Contact</a></p>
+    </footer>
+</body>
+</html>
