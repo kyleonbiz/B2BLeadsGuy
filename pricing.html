@@ -545,14 +545,22 @@
     <div id="planModal" class="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
-            <h2>Get Started</h2>
-            <p id="planName" style="color: var(--red); font-size: 18px; margin-bottom: 20px;"></p>
-            <form id="planForm">
-                <input type="text" id="customerName" placeholder="Your Name" required style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(254, 254, 254, 0.15); border: 1px solid rgba(252, 5, 4, 0.5); color: var(--white); border-radius: 4px; font-size: 14px;">
-                <input type="email" id="customerEmail" placeholder="Your Email" required style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(254, 254, 254, 0.15); border: 1px solid rgba(252, 5, 4, 0.5); color: var(--white); border-radius: 4px; font-size: 14px;">
-                <textarea id="customerNotes" placeholder="Any questions or special requests?" style="display: block; width: 100%; padding: 12px; margin-bottom: 20px; background: rgba(254, 254, 254, 0.15); border: 1px solid rgba(252, 5, 4, 0.5); color: var(--white); border-radius: 4px; font-family: inherit; resize: none; height: 80px; font-size: 14px;"></textarea>
-                <button type="submit" class="pricing-cta" style="width: 100%;">Send to Discord</button>
-            </form>
+            <div id="formContent">
+                <h2>Get Started</h2>
+                <p id="planName" style="color: var(--red); font-size: 18px; margin-bottom: 20px;"></p>
+                <form id="planForm">
+                    <input type="text" id="customerName" placeholder="Your Name" required style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(254, 254, 254, 0.15); border: 1px solid rgba(252, 5, 4, 0.5); color: var(--white); border-radius: 4px; font-size: 14px;">
+                    <input type="email" id="customerEmail" placeholder="Your Email" required style="display: block; width: 100%; padding: 12px; margin-bottom: 15px; background: rgba(254, 254, 254, 0.15); border: 1px solid rgba(252, 5, 4, 0.5); color: var(--white); border-radius: 4px; font-size: 14px;">
+                    <textarea id="customerNotes" placeholder="Any questions or special requests?" style="display: block; width: 100%; padding: 12px; margin-bottom: 20px; background: rgba(254, 254, 254, 0.15); border: 1px solid rgba(252, 5, 4, 0.5); color: var(--white); border-radius: 4px; font-family: inherit; resize: none; height: 80px; font-size: 14px;"></textarea>
+                    <button type="submit" class="pricing-cta" style="width: 100%;">Send to Discord</button>
+                </form>
+            </div>
+            <div id="successContent" style="display: none; text-align: center;">
+                <h2>Request Received!</h2>
+                <p style="font-size: 18px; color: var(--red); margin: 20px 0;">Thank you for your interest</p>
+                <p style="font-size: 14px; color: rgba(254, 254, 254, 0.8); line-height: 1.6; margin-bottom: 30px;">We've received your request and will send your information to the email address you provided within <strong>24-48 hours</strong>.</p>
+                <button class="pricing-cta" onclick="document.getElementById('planModal').style.display = 'none';" style="width: 100%;">Close</button>
+            </div>
         </div>
     </div>
 
@@ -624,11 +632,15 @@
 
         modalClose.addEventListener('click', () => {
             modal.style.display = 'none';
+            document.getElementById('formContent').style.display = 'block';
+            document.getElementById('successContent').style.display = 'none';
         });
 
         window.addEventListener('click', (event) => {
             if (event.target === modal) {
                 modal.style.display = 'none';
+                document.getElementById('formContent').style.display = 'block';
+                document.getElementById('successContent').style.display = 'none';
             }
         });
 
@@ -649,9 +661,9 @@
                     body: JSON.stringify(message)
                 });
 
-                alert('Your request has been sent! I\'ll reach out soon.');
                 planForm.reset();
-                modal.style.display = 'none';
+                document.getElementById('formContent').style.display = 'none';
+                document.getElementById('successContent').style.display = 'block';
             } catch (error) {
                 alert('There was an error. Please email me at info@b2bleadsguy.com');
                 console.error('Error:', error);
