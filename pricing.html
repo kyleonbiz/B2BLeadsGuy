@@ -610,18 +610,16 @@
         const modalClose = document.querySelector('.modal-close');
         let selectedPlan = '';
 
-        document.querySelectorAll('.pricing-cta').forEach(button => {
-            if (button.textContent.trim() === 'Choose Plan') {
-                button.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    const card = this.closest('.pricing-card');
-                    const planNameEl = card.querySelector('.pricing-name');
-                    const priceEl = card.querySelector('.pricing-price');
-                    selectedPlan = `${planNameEl.textContent} - ${priceEl.textContent}`;
-                    document.getElementById('planName').textContent = selectedPlan;
-                    modal.style.display = 'block';
-                });
-            }
+        document.querySelectorAll('.pricing-card .pricing-cta').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                const card = this.closest('.pricing-card');
+                const planNameEl = card.querySelector('.pricing-name');
+                const priceEl = card.querySelector('.pricing-price');
+                selectedPlan = `${planNameEl.textContent} - ${priceEl.textContent}`;
+                document.getElementById('planName').textContent = selectedPlan;
+                modal.style.display = 'block';
+            });
         });
 
         modalClose.addEventListener('click', () => {
