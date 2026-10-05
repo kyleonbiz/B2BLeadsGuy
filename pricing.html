@@ -639,7 +639,7 @@
             const notes = document.getElementById('customerNotes').value;
 
             const message = {
-                content: `🎯 **New Plan Request**\n\n**Name:** ${name}\n**Email:** ${email}\n**Plan:** ${selectedPlan}\n**Notes:** ${notes || 'None'}`
+                content: `New Plan Request\n\nName: ${name}\nEmail: ${email}\nPlan: ${selectedPlan}\nNotes: ${notes || 'None'}`
             };
 
             try {
@@ -649,11 +649,11 @@
                     body: JSON.stringify(message)
                 });
 
-                alert('✅ Your request has been sent! I'll reach out soon.');
+                alert('Your request has been sent! I\'ll reach out soon.');
                 planForm.reset();
                 modal.style.display = 'none';
             } catch (error) {
-                alert('⚠️ There was an error. Please email me at info@b2bleadsguy.com');
+                alert('There was an error. Please email me at info@b2bleadsguy.com');
                 console.error('Error:', error);
             }
         });
