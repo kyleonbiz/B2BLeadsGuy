@@ -24,11 +24,9 @@ Create a Google Sheet with the following worksheets:
 
 Add these secrets to your repository (Settings → Secrets and variables → Actions):
 
-#### Microsoft Graph / Outlook Credentials:
-- `MS_TENANT_ID` - Your Azure tenant ID
-- `MS_CLIENT_ID` - Service account client ID
-- `MS_CLIENT_SECRET` - Service account client secret
-- `SENDER_EMAIL` - Email address to send from
+#### Gmail Credentials:
+- `SENDER_EMAIL` - Your Gmail address (e.g., b2bleadsguy@gmail.com)
+- `GMAIL_PASSWORD` - Your Gmail password (or app-specific password if 2FA enabled)
 
 #### Google Authentication:
 - `WORKLOAD_IDENTITY_PROVIDER` - Google Cloud workload identity provider
@@ -40,19 +38,24 @@ Add these secrets to your repository (Settings → Secrets and variables → Act
 #### Notifications (Optional):
 - `DISCORD_WEBHOOK_URL` - Discord webhook for email send summaries
 
-### 3. Google Cloud Setup
+### 3. Gmail Setup
+
+**If your Gmail account has 2-factor authentication:**
+1. Go to myaccount.google.com/apppasswords
+2. Select "Mail" and "Windows Computer" (or your device)
+3. Copy the app password provided
+4. Use this app password as `GMAIL_PASSWORD` secret
+
+**If your Gmail account does NOT have 2FA:**
+- Use your regular Gmail password as `GMAIL_PASSWORD`
+- Optional: Enable "Less secure app access" in Gmail security settings
+
+### 4. Google Cloud Setup
 
 1. Create a Google Cloud service account
 2. Enable "Workload Identity Federation" 
 3. Create a workload identity provider for GitHub Actions
 4. Grant the service account permission to edit your Google Sheet
-
-### 4. Microsoft Graph Setup
-
-1. Create an Azure app registration
-2. Grant it `Mail.Send` permission
-3. Generate a client secret
-4. Note the tenant ID, client ID, and secret
 
 ### 5. Workflow Behavior
 
@@ -97,16 +100,16 @@ Enable Discord notifications by setting `DISCORD_WEBHOOK_URL`. Each run sends:
 
 To test the email sending locally:
 ```bash
-export MS_TENANT_ID="your-tenant-id"
-export MS_CLIENT_ID="your-client-id"
-export MS_CLIENT_SECRET="your-secret"
-export SENDER_EMAIL="your-email@company.com"
+export SENDER_EMAIL="b2bleadsguy@gmail.com"
+export GMAIL_PASSWORD="your-gmail-password-or-app-password"
 export SHEET_ID="your-sheet-id"
 export TEST_MODE="true"
 export TEST_EMAIL="your-personal-email@gmail.com"
 
 python send_emails.py
 ```
+
+This will send one test email to `TEST_EMAIL` and mark it as "sent_test" in the log.
 
 ## Troubleshooting
 

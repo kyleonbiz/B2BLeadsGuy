@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install requests gspread google-auth
+      - run: pip install requests gspread google-auth google-auth-oauthlib google-auth-httplib2 google-auth-httplib2
       - uses: google-github-actions/auth@v2
         with:
           workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
@@ -27,13 +27,10 @@ jobs:
       - name: Send emails
         env:
           SHEET_ID: ${{ secrets.SHEET_ID }}
-          MS_TENANT_ID: ${{ secrets.MS_TENANT_ID }}
-          MS_CLIENT_ID: ${{ secrets.MS_CLIENT_ID }}
-          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+          GMAIL_PASSWORD: ${{ secrets.GMAIL_PASSWORD }}
           TEST_MODE: 'false'
-          PER_RUN_CAP: '10'
-          DAILY_CAP: '100'
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: python send_emails.py
       - name: Discord completion notification
         if: always()

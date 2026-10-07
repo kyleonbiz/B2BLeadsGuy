@@ -7,15 +7,18 @@ import math
 import datetime
 import requests
 import gspread
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+from email import encoders
 from gspread.utils import rowcol_to_a1
 import google.auth
 from google.auth.exceptions import TransportError
 from collections import defaultdict
 
-TENANT_ID = os.environ.get("MS_TENANT_ID")
-CLIENT_ID = os.environ.get("MS_CLIENT_ID")
-CLIENT_SECRET = os.environ.get("MS_CLIENT_SECRET")
-SENDER_EMAIL = os.environ.get("SENDER_EMAIL")
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "b2bleadsguy@gmail.com")
+GMAIL_PASSWORD = os.environ.get("GMAIL_PASSWORD")
 SHEET_ID = os.environ.get("SHEET_ID")
 TEST_MODE = os.environ.get("TEST_MODE", "true").lower() == "true"
 TEST_EMAIL = os.environ.get("TEST_EMAIL", "")
@@ -116,62 +119,54 @@ def load_logo_base64():
     except FileNotFoundError:
         return None
 
-def get_graph_token():
-    url = f"https://login.microsoftonline.com/{TENANT_ID}/oauth2/v2.0/token"
-    data = {
-        "grant_type": "client_credentials",
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET,
-        "scope": "https://graph.microsoft.com/.default",
-    }
-    resp = requests.post(url, data=data)
-    resp.raise_for_status()
-    return resp.json()["access_token"]
-
-def send_email(token, to_email, subject, html_body, logo_b64=None, retry_count=0):
-    """Send email with exponential backoff on rate limits.
+def send_email(to_email, subject, html_body, logo_b64=None, retry_count=0):
+    """Send email via Gmail SMTP.
 
     Returns (status_code, error_message, is_retryable).
     - status_code 202: success
-    - is_retryable True: indicates soft failure (rate limit, temp unavailable)
+    - is_retryable True: indicates soft failure (temp unavailable)
     """
-    url = f"https://graph.microsoft.com/v1.0/users/{SENDER_EMAIL}/sendMail"
-    headers = {
-        "Authorization": f"Bearer {token}",
-        "Content-Type": "application/json",
-    }
-    message = {
-        "subject": subject,
-        "body": {"contentType": "HTML", "content": html_body},
-        "toRecipients": [{"emailAddress": {"address": to_email}}],
-    }
-    if logo_b64:
-        message["attachments"] = [
-            {
-                "@odata.type": "#microsoft.graph.fileAttachment",
-                "name": "logo.png",
-                "contentType": "image/png",
-                "contentBytes": logo_b64,
-                "contentId": "aurum_logo",
-                "isInline": True,
-            }
-        ]
-    payload = {"message": message, "saveToSentItems": "true"}
-    resp = requests.post(url, headers=headers, json=payload)
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(SENDER_EMAIL, GMAIL_PASSWORD)
 
-    # Classify error as retryable or permanent
-    is_retryable = resp.status_code in [429, 503, 504, 500]  # Rate limit, unavailable, gateway timeout
-    error_msg = resp.text[:200] if resp.status_code != 202 else ""
+        msg = MIMEMultipart("related")
+        msg["Subject"] = subject
+        msg["From"] = SENDER_EMAIL
+        msg["To"] = to_email
 
-    # Handle rate limiting with exponential backoff
-    if resp.status_code == 429:
-        retry_after = int(resp.headers.get("Retry-After", MICROSECOND_GRAPH_RATE_LIMIT_WAIT))
+        msg_alt = MIMEMultipart("alternative")
+        msg.attach(msg_alt)
+
+        msg_alt.attach(MIMEText(html_body, "html"))
+
+        if logo_b64:
+            img_data = base64.b64decode(logo_b64)
+            img_part = MIMEBase("image", "png")
+            img_part.set_payload(img_data)
+            encoders.encode_base64(img_part)
+            img_part.add_header("Content-ID", "<aurum_logo>")
+            img_part.add_header("Content-Disposition", "inline", filename="logo.png")
+            msg.attach(img_part)
+
+        server.send_message(msg)
+        server.quit()
+
+        return 202, "", False
+    except smtplib.SMTPServerDisconnected as e:
         if retry_count < MAX_CONSECUTIVE_RETRIES:
-            print(f"⚠️  Rate limited (429). Waiting {retry_after}s before retry...")
-            time.sleep(retry_after)
-            return send_email(token, to_email, subject, html_body, logo_b64, retry_count + 1)
-
-    return resp.status_code, error_msg, is_retryable
+            print(f"⚠️  Connection lost. Waiting 5s before retry...")
+            time.sleep(5)
+            return send_email(to_email, subject, html_body, logo_b64, retry_count + 1)
+        return 500, f"Connection error: {str(e)[:100]}", True
+    except smtplib.SMTPException as e:
+        error_msg = str(e)[:200]
+        is_retryable = "try again" in error_msg.lower() or "temporarily" in error_msg.lower()
+        status_code = 429 if is_retryable else 400
+        return status_code, error_msg, is_retryable
+    except Exception as e:
+        return 500, f"Unexpected error: {str(e)[:100]}", False
 
 # ---------- Email checks (protect sender reputation) ----------
 EMAIL_RE = re.compile(r"^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$")
@@ -300,12 +295,12 @@ def get_sheets_with_retry(max_retries=3):
             else:
                 raise SystemExit(f"Failed to connect to Google Sheets after {max_retries} attempts: {e}")
 
-def verify_sender_auth(token):
+def verify_sender_auth():
     """Test that sender can actually send emails before bulk send."""
     test_subject = "[AUTH TEST] Aurum Ventura - Ignore this message"
     test_body = "<p>This is an authentication test. You can safely delete this email.</p>"
 
-    status, error, _ = send_email(token, SENDER_EMAIL, test_subject, test_body)
+    status, error, _ = send_email(SENDER_EMAIL, test_subject, test_body)
     if status == 202:
         print("✅ Authentication verified: sender can send emails")
         return True
@@ -391,8 +386,8 @@ def send_discord_notification(sent_count, leads_sent, referrals_sent, skipped_in
 
 if __name__ == "__main__":
     required = {
-        "MS_TENANT_ID": TENANT_ID, "MS_CLIENT_ID": CLIENT_ID,
-        "MS_CLIENT_SECRET": CLIENT_SECRET, "SENDER_EMAIL": SENDER_EMAIL,
+        "SENDER_EMAIL": SENDER_EMAIL,
+        "GMAIL_PASSWORD": GMAIL_PASSWORD,
         "SHEET_ID": SHEET_ID,
     }
     for name, val in required.items():
@@ -421,8 +416,7 @@ if __name__ == "__main__":
     today = datetime.date.today().isoformat()
 
     # GUARDRAIL: Verify auth before mass send
-    token = get_graph_token()
-    if not verify_sender_auth(token):
+    if not verify_sender_auth():
         raise SystemExit("Cannot proceed: sender authentication failed.")
 
     if TEST_MODE:
@@ -540,7 +534,7 @@ if __name__ == "__main__":
         if TEST_MODE:
             subject = "[TEST] " + subject
 
-        status_code, error_message, is_retryable = send_email(token, recipient, subject, body, logo_b64)
+        status_code, error_message, is_retryable = send_email(recipient, subject, body, logo_b64)
 
         if status_code == 202:
             send_status = "sent_test" if TEST_MODE else "sent"
